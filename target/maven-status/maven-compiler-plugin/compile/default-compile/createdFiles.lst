@@ -1,0 +1,7 @@
+com\example\windsurfaidemo\WindsurfAiDemoApplication.class
+com\example\windsurfaidemo\model\Task.class
+com\example\windsurfaidemo\util\CommonUtils.class
+com\example\windsurfaidemo\repository\TaskRepository.class
+com\example\windsurfaidemo\controller\TaskController.class
+com\example\windsurfaidemo\util\Calc.class
+com\example\windsurfaidemo\service\TaskService.class

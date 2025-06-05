@@ -1,0 +1,40 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK 17 (Corretto)
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'corretto'
+        cache: 'maven'
+    
+    - name: Build with Maven
+      run: mvn -B clean package --file pom.xml
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: '**/surefire-reports/*.xml'
+    
+    - name: Upload JaCoCo report
+      uses: actions/upload-artifact@v3
+      if: success()
+      with:
+        name: jacoco-report
+        path: '**/site/jacoco/**'
